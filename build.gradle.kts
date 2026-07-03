@@ -25,7 +25,7 @@ repositories {
     maven("https://maven.ithundxr.dev/snapshots") { // Registrate 1.20.4+
         content { includeGroup("com.tterrag.registrate") }
     }
-    maven("https://maven.octo-studios.com/releases") { // Curios
+    maven("https://maven.theillusivec4.top") { // Curios
         content { includeGroup("top.theillusivec4.curios") }
     }
     maven("https://cursemaven.com") {
@@ -163,7 +163,7 @@ dependencies {
     implementation("mcjty.theoneprobe:theoneprobe:${"deps.top"()}")
 
     // Curios
-    compileOnly("top.theillusivec4.curios:curios-neoforge:${"deps.curios"()}")
+    compileOnly("top.theillusivec4.curios:curios-neoforge:${"deps.curios"()}:api")
     localRuntime("top.theillusivec4.curios:curios-neoforge:${"deps.curios"()}")
 
     // GregTech CEu Modern
