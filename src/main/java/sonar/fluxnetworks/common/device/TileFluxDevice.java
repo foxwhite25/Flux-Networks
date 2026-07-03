@@ -320,6 +320,16 @@ public abstract class TileFluxDevice extends BlockEntity implements IFluxDevice 
 
         if (level.isClientSide) {
             mClientColor = FluxUtils.getModifiedColor(ClientCache.getNetwork(mNetworkID).getNetworkColor(), 1.1f);
+        } else if ((mFlags & FLAG_FIRST_TICKED) != 0) {
+            // This device has already ticked at least once (i.e. this is not the initial
+            // placement of the block, where onFirstTick() will connect() on its own next tick).
+            // This happens e.g. when a Flux Configurator pastes settings onto an existing device.
+            // Without this, the device would keep its stale FluxNetwork reference and the client
+            // would never receive an update packet, so nothing would visibly change until the
+            // block was broken and re-placed.
+            connect(FluxNetworkData.getNetwork(mNetworkID));
+            mFlags |= FLAG_SETTING_CHANGED;
+            markChunkUnsaved();
         }
 
         super.applyImplicitComponents(componentInput);
